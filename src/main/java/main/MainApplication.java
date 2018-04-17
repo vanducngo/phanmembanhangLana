@@ -79,7 +79,7 @@ public class MainApplication {
 						.executeGetReQuest(UriConstant.HOST.GHTK + UriConstant.API.OrderDetails + orderId);
 				Gson gson = new Gson();
 				OrderDetail orderDetails = gson.fromJson(jsonRequest, OrderDetail.class);
-				if (orderDetails != null) {
+				if (orderDetails != null && orderDetails.getOrder() != null) {
 					Order order = orderDetails.getOrder();
 
 					lblOrderId.setText(order.getOrderId());

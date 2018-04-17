@@ -9,6 +9,6 @@ public interface UriConstant {
 		String OrderDetails = "/services/shipment/v2/";
 	}
 	public static @interface TOKEN {
-		String GHTK = "488E577fC0988F5c10d433b2429d0FD9adE69Ed4";
+		String GHTK = "488E577fC09811908F5c10d433b2429d0FD9adE69Ed4";
 	}
 }
