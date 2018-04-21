@@ -4,13 +4,17 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
 
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -20,6 +24,8 @@ import api.UriGHTKAPI;
 import constant.UriConstant;
 import model.Order;
 import model.OrderDetail;
+import print.PrintUtils;
+
 import javax.swing.JTextArea;
 
 public class MainApplication {
@@ -62,7 +68,7 @@ public class MainApplication {
 		frame.setBounds(100, 100, 850, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JLabel lblLanashop = new JLabel("GradleExample");
+		JLabel lblLanashop = new JLabel("Giao h\u00E0ng ti\u1EBFt ki\u1EC7m");
 
 		inputOrderId = new JTextField();
 		inputOrderId.setText("S5436.SG1.26H.88740181");
@@ -94,9 +100,33 @@ public class MainApplication {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 
-		JButton btnNewButton = new JButton("In Mã Đơn Hàng");
+		JButton btnNewButton = new JButton("In m\u00E3 \u0111\u01A1n h\u00E0ng");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JTextArea textPane = new JTextArea();
+				textPane.setFont(textPane.getFont().deriveFont(18f));
+				textPane.setLineWrap(true);
+				textPane.setWrapStyleWord(true);
+
+				String textPrint = inputOrderId.getText();
+				if (textPrint.equals("")) {
+					return;
+				}
+
+				String[] textArr = textPrint.split("\\.");
+				textPrint = textArr[textArr.length-1];
+				textPane.setText(textPrint);
+				textPane.append("\n \n");
+				textPane.append(".");;
+
+				try {
+					PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
+					textPane.print();
+				} catch (PrinterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+//				PrintUtils.printOrderId(inputOrderId.getText());
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
@@ -127,17 +157,17 @@ public class MainApplication {
 										.addComponent(btnNewButton))))
 				.addContainerGap(162, Short.MAX_VALUE)));
 
-		JLabel lblNewLabel = new JLabel("Mã đơn hàng:");
+		JLabel lblNewLabel = new JLabel("M\u00E3 \u0111\u01A1n h\u00E0ng:");
 
 		lblOrderId = new JLabel("");
 
-		JLabel lblNewLabel_1 = new JLabel("Tên khách hàng:");
+		JLabel lblNewLabel_1 = new JLabel("T\u00EAn kh\u00E1ch h\u00E0ng");
 
 		lblCustomerName = new JLabel("");
 
-		JLabel lblaCh = new JLabel("Địa chỉ:");
+		JLabel lblaCh = new JLabel("\u0110\u1ECBa ch\u1EC9");
 
-		JLabel lblGiTin = new JLabel("Giá tiền:");
+		JLabel lblGiTin = new JLabel("Gi\u00E1 ti\u1EC1n:");
 
 		lblPrice = new JLabel("");
 
